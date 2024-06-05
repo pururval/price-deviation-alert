@@ -216,8 +216,8 @@ ERROR: GetoptError was raised: option -c requires argument
 ```
 ### 9. Pylint score
 
-- Ideal error for input argument would be TypeError but due to time constraints, wasnt able to update it.
-- The module name could be changed to `api_alerts.py` (snake_case) but wanted to keep it as close as possible to the sample run shown in the assignment document.
+- The module name could be changed from `apiAlerts.py` to `api_alerts.py` (snake_case) but wanted to keep it as close as possible to the sample run shown in the assignment document.
+- Ideal exception for input argument would be TypeError but due to time constraints, wasnt able to update it.
 
 ```bash
 python3 test.py 
