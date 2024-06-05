@@ -70,10 +70,20 @@ pip3 install -r requirements.txt
     
     
 ### 3. Optional: A dockerfile to run the script
+
 ### 4. What you would do next to further improve it
-- 
+- Add unit tests
+- Improve logging by ouput to file and flags for various levels like DEBUG, WARNING to be set as argument.
+- Optimize api call and calculations for performance
+- Dockerize the app
+- Improve documenation with better formatting and API refrences
+
 ### 5. Other interesting checks you might implement to alert on market behaviour
-- 
+- Implement a cache for unusual spikes or changes since the app was started and compare with general behavior
+- Find correlations on different currency trends
+- Extend daily results and add fields for weekly or monthly results
+- Alert when price reaches peaks or when it reverses
+
 ### 6. Approach to solving the task, and any issues you faced with implementation
     
 1. Started with the search on gemini api for relavant endpoints
