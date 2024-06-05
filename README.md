@@ -3,7 +3,33 @@ Generate a log alert if the standard deviation from the hourly prices of a curre
 
 ## Deliverables:
 ### 1. Instructions for running your script
-- Make the python script executable. 
+
+The main command to run the script and get the expected result:   
+    
+```
+./apiAlerts.py -c btcusd | jq .
+```    
+```JSON
+{
+  "timestamp": "2024-06-05T11:32:27.084487",
+  "trading_pair": "btcusd",
+  "level": "INFO",
+  "deviation": true,
+  "data": {
+    "last_price": "70454.62",
+    "average": "70806.03375",
+    "change": "-351.413750000007",
+    "sdev": "1.5625445321221245"
+  }
+}
+```
+ If you face issues with file permissions or dependencies, try using a python virtual environment or making the file executable using the troubleshooting steps below. 
+- Specify to use python interpretter if it errors with `import not found` (OPTIONAL)
+    ```bash
+    python3 apiAlerts.py -c btcusd | jq .
+    ```    
+
+- To make the python script executable if there are permission errors. (OPTIONAL)
     
     ```bash
     chmod 755 apiAlerts.py
@@ -13,17 +39,19 @@ Generate a log alert if the standard deviation from the hourly prices of a curre
     python3 -m venv myenv
     source myenv/bin/activate
     ```
-- Get the dependencies from `requirements.txt`.
+- Get the dependencies from `requirements.txt`, mainly for `import requests`.
 
     ```bash
     pip3 install -r requirements.txt
     ```
-- Deactivate the virtual environment when finished testing the apiAlerts.py script.
+- After this, run `./apiAlerts.py -c btcusd | jq .` to test the script.
+- Deactivate the virtual environment when finished testing.
 
     ```bash
     deactivate 
     ```
-    Example 1: using default deviation=1 for currency=btcusd
+    
+    >Example 1: using default deviation (1) for currency=btcusd
 
           
     ```bash
@@ -45,17 +73,19 @@ Generate a log alert if the standard deviation from the hourly prices of a curre
     }
     ```
 
-    Example 2: using deviation=3.2 for currency=btcusd
+    >Example 2: using deviation=3.2 for currency=ethusd
         
     ```bash
-    ./apiAlerts.py -d 3.2 -c btcusd | jq .
+    ./apiAlerts.py -d 3.2 -c ethusd | jq .
     ```    
     ```JSON
     {
-        "timestamp": "2024-06-05T08:57:55.553131",
-        "trading_pair": "btcusd",
+        {
+        "timestamp": "2024-06-05T11:28:30.532493",
+        "trading_pair": "ethusd",
         "level": "INFO",
         "deviation": false
+        }
     }
     ```
 
@@ -100,7 +130,7 @@ pip3 install -r requirements.txt
 - ~4 hrs
 
 ### 8. Example cases
-- Example: Help page
+>Example: Help page
 
     ```bash
     ./apiAlerts.py -h
@@ -119,7 +149,7 @@ pip3 install -r requirements.txt
     -d DEVIATION, --deviation DEVIATION      standard deviation threshold. eg. 1
     ```
 
-- Example: Deviation true on custom SD and currency:btcusd
+>Example: Deviation true on custom SD and currency:btcusd
 
     ```bash
     ./apiAlerts.py -d 0.0011 -c btcusd | jq .
@@ -138,7 +168,7 @@ pip3 install -r requirements.txt
         }
     }
     ```
-- Example: Deviation False on default SD and currency:btcusd
+>Example: Deviation False on default SD and currency:btcusd
 
     ```bash
     ./apiAlerts.py -c btcusd | jq . 
@@ -152,7 +182,7 @@ pip3 install -r requirements.txt
     }
     ```
 
-- Example: Invalid currency symbol
+>Example: Invalid currency symbol
 
     ```bash
     ./apiAlerts.py -d 0.0011 -c xyz | jq .
@@ -167,7 +197,7 @@ pip3 install -r requirements.txt
     }
     ```
 
-- Example: Invalid argument - missing currency symbol
+>Example: Invalid argument - missing currency symbol
 
     ```bash
     ./apiAlerts.py -d 3 -c | jq .
