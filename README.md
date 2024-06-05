@@ -116,101 +116,101 @@ pip3 install -r requirements.txt
 
 ### 6. Approach to solving the task, and any issues faced with implementation
     
-1. Started with the search on gemini api for relavant endpoints
-2. Found ticker/v2 which provided past 24 hr values for a currencypair
-3. Implemented the basic math for mean, SD and change using ticker/v2 api call.
+- Started with the search on gemini api for relavant endpoints
+- Found ticker/v2 which provided past 24 hr values for a currencypair
+- Implemented the basic math for mean, SD and change using ticker/v2 api call.
     - Was confused in technicality of SD vs sdevs (z index) and meaning of notional value. Youtube saved the day.
     - The ticker/v2 api call didnt have timestamp so would need ticker/v1 to retrieve that but things got rough when there was data descrepency in response of closing val from v1 and v2. Ended up realising that timestamp refers to the log time as hourly time closing value wouldnt really help in alert feature.
-4. Implemented args for custom sdev and currency
-5. Testing on various cases of faulty inputs
-6. Code restructuring and redundancy removal
-7. Documentation with examples on how to use the script 
+- Implemented args for custom sdev and currency
+- Testing on various cases of faulty inputs
+- Code restructuring and redundancy removal
+- Documentation with examples on how to use the script 
 
 ### 7. The time taken to write it
-- ~4 hrs
+&nbsp;&nbsp;&nbsp;&nbsp; ~4 hrs
 
-### 8. Example cases
-- >Example 3: Help page
+### 8. Examples
+>Example 3: Help page
 
-    ```bash
-    ./apiAlerts.py -h
-    ```
+```bash
+./apiAlerts.py -h
+```
 
-    ```bash
-    2024-06-04 21:51:51,657420 - AlertingTool - INFO - Parsing args
+```bash
+2024-06-04 21:51:51,657420 - AlertingTool - INFO - Parsing args
 
-    usage: apiAlerts.py [-h] [-c CURRENCY] [-d DEVIATION]
+usage: apiAlerts.py [-h] [-c CURRENCY] [-d DEVIATION]
 
-    Runs checks on API
+Runs checks on API
 
-    optional arguments:
-    -h, --help                               show this help message and exit
-    -c CURRENCY, --currency CURRENCY         The currency trading pair, or ALL
-    -d DEVIATION, --deviation DEVIATION      standard deviation threshold. eg. 1
-    ```
+optional arguments:
+-h, --help                               show this help message and exit
+-c CURRENCY, --currency CURRENCY         The currency trading pair, or ALL
+-d DEVIATION, --deviation DEVIATION      standard deviation threshold. eg. 1
+```
 
-- >Example 4: Deviation true on custom SD and currency:btcusd
+>Example 4: Deviation true on custom SD and currency:btcusd
 
-    ```bash
-    ./apiAlerts.py -d 0.0011 -c btcusd | jq .
-    ```
-    ```JSON
-    {
-        "timestamp": "2024-06-04T21:51:58.349331",
-        "trading_pair": "btcusd",
-        "level": "INFO",
-        "deviation": true,
-        "data": {
-            "last_price": "69185.27",
-            "average": "69697.24875",
-            "change": "-511.97874999999476",
-            "sdev": "0.632127516883148"
-        }
+```bash
+./apiAlerts.py -d 0.0011 -c btcusd | jq .
+```
+```JSON
+{
+    "timestamp": "2024-06-04T21:51:58.349331",
+    "trading_pair": "btcusd",
+    "level": "INFO",
+    "deviation": true,
+    "data": {
+        "last_price": "69185.27",
+        "average": "69697.24875",
+        "change": "-511.97874999999476",
+        "sdev": "0.632127516883148"
     }
-    ```
-- >Example 5: Deviation False on default SD and currency:btcusd
+}
+```
+>Example 5: Deviation False on default SD and currency:btcusd
 
-    ```bash
-    ./apiAlerts.py -c btcusd | jq . 
-    ```
-    ```JSON
-    {
-        "timestamp": "2024-06-04T22:13:31.436689",
-        "trading_pair": "btcusd",
-        "level": "INFO",
-        "deviation": false
+```bash
+./apiAlerts.py -c btcusd | jq . 
+```
+```JSON
+{
+    "timestamp": "2024-06-04T22:13:31.436689",
+    "trading_pair": "btcusd",
+    "level": "INFO",
+    "deviation": false
+}
+```
+
+>Example 6: Invalid currency symbol
+
+```bash
+./apiAlerts.py -d 0.0011 -c xyz | jq .
+```   
+```JSON
+{
+    "level": "ERROR",
+    "deviation": "-",
+    "data": {
+        "error_desc": "Supplied value 'XYZ' is not a valid symbol"
     }
-    ```
+}
+```
 
-- >Example 6: Invalid currency symbol
+>Example 7: Invalid argument - missing currency symbol
 
-    ```bash
-    ./apiAlerts.py -d 0.0011 -c xyz | jq .
-    ```   
-    ```JSON
-    {
-        "level": "ERROR",
-        "deviation": "-",
-        "data": {
-            "error_desc": "Supplied value 'XYZ' is not a valid symbol"
-        }
-    }
-    ```
+```bash
+./apiAlerts.py -d 3 -c | jq .
+```
 
-- >Example 7: Invalid argument - missing currency symbol
+```bash
+parse error: Invalid numeric literal at line 1, column 6
+```
 
-    ```bash
-    ./apiAlerts.py -d 3 -c | jq .
-    ```
+```bash
+./apiAlerts.py -d 3 -c
+```
 
-    ```bash
-    parse error: Invalid numeric literal at line 1, column 6
-    ```
-
-    ```bash
-    ./apiAlerts.py -d 3 -c
-    ```
-
-    ```bash
-    ERROR: GetoptError was raised: option -c requires argument
-    ```
+```bash
+ERROR: GetoptError was raised: option -c requires argument
+```
