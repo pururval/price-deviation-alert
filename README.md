@@ -2,7 +2,7 @@
 Generate a log alert if the standard deviation from the hourly prices of a currency pair for past 24 hours is more than 1 (or any indicated value in the CLI parameter defined in the tool)
 
 ## Deliverables:
-### 1. Instructions for running your script
+### 1. Instructions for running the script
 
 The main command to run the script and get the expected result:   
     
@@ -24,12 +24,12 @@ The main command to run the script and get the expected result:
 }
 ```
  If you face issues with file permissions or dependencies, try using a python virtual environment or making the file executable using the troubleshooting steps below. 
-- Specify to use python interpretter if it errors with `import not found` (OPTIONAL)
+- Specify to use python interpretter if it errors with `import not found` (Optional)
     ```bash
     python3 apiAlerts.py -c btcusd | jq .
     ```    
 
-- To make the python script executable if there are permission errors. (OPTIONAL)
+- To make the python script executable if there are permission errors. (Optional)
     
     ```bash
     chmod 755 apiAlerts.py
@@ -101,20 +101,20 @@ pip3 install -r requirements.txt
     
 ### 3. Optional: A dockerfile to run the script
 
-### 4. What you would do next to further improve it
+### 4. What next to further improve it
 - Add unit tests
 - Improve logging by ouput to file and flags for various levels like DEBUG, WARNING to be set as argument.
 - Optimize api call and calculations for performance
 - Dockerize the app
 - Improve documenation with better formatting and API refrences
 
-### 5. Other interesting checks you might implement to alert on market behaviour
+### 5. Other interesting checks to implement to alert on market behaviour
 - Implement a cache for unusual spikes or changes since the app was started and compare with general behavior
 - Find correlations on different currency trends
 - Extend daily results and add fields for weekly or monthly results
 - Alert when price reaches peaks or when it reverses
 
-### 6. Approach to solving the task, and any issues you faced with implementation
+### 6. Approach to solving the task, and any issues faced with implementation
     
 1. Started with the search on gemini api for relavant endpoints
 2. Found ticker/v2 which provided past 24 hr values for a currencypair
@@ -130,7 +130,7 @@ pip3 install -r requirements.txt
 - ~4 hrs
 
 ### 8. Example cases
->Example: Help page
+- >Example 3: Help page
 
     ```bash
     ./apiAlerts.py -h
@@ -149,7 +149,7 @@ pip3 install -r requirements.txt
     -d DEVIATION, --deviation DEVIATION      standard deviation threshold. eg. 1
     ```
 
->Example: Deviation true on custom SD and currency:btcusd
+- >Example 4: Deviation true on custom SD and currency:btcusd
 
     ```bash
     ./apiAlerts.py -d 0.0011 -c btcusd | jq .
@@ -168,7 +168,7 @@ pip3 install -r requirements.txt
         }
     }
     ```
->Example: Deviation False on default SD and currency:btcusd
+- >Example 5: Deviation False on default SD and currency:btcusd
 
     ```bash
     ./apiAlerts.py -c btcusd | jq . 
@@ -182,7 +182,7 @@ pip3 install -r requirements.txt
     }
     ```
 
->Example: Invalid currency symbol
+- >Example 6: Invalid currency symbol
 
     ```bash
     ./apiAlerts.py -d 0.0011 -c xyz | jq .
@@ -197,7 +197,7 @@ pip3 install -r requirements.txt
     }
     ```
 
->Example: Invalid argument - missing currency symbol
+- >Example 7: Invalid argument - missing currency symbol
 
     ```bash
     ./apiAlerts.py -d 3 -c | jq .
