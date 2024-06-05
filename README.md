@@ -167,10 +167,10 @@ pip3 install -r requirements.txt
     parse error: Invalid numeric literal at line 1, column 6
     ```
 
-    ```bash
+    ```zsh
     ./apiAlerts.py -d 3 -c
     ```
 
-    ```bash
+    ```zsh
     ERROR: GetoptError was raised: option -c requires argument
     ```
