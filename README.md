@@ -5,30 +5,30 @@ Generate a log alert if the standard deviation from the hourly prices of a curre
 ### 1. Instructions for running your script
 - Make the python script executable. 
     
-    ```bash
+    `
     chmod 755 apiAlerts.py
-    ```
+    `
 - Create and activate the virtual environment `myenv`. 
-    ```bash
+    `
     python3 -m venv myenv
     source myenv/bin/activate
-    ```
+    `
 - Get the dependencies from `requirements.txt`.
 
-    ```bash
+    `
     pip3 install -r requirements.txt
-    ```
+    `
 - Deactivate the virtual environment when finished testing the apiAlerts.py script.
 
-    ```bash
+    `
     deactivate 
-    ```
+    `
     Example 1: using default deviation=1 for currency=btcusd
 
           
-    ```bash
+    `
     ./apiAlerts.py -c btcusd | jq .
-    ```
+    `
         
     ```JSON
     {
@@ -47,9 +47,9 @@ Generate a log alert if the standard deviation from the hourly prices of a curre
 
     Example 2: using deviation=3.2 for currency=btcusd
         
-    ```bash
+    `
     ./apiAlerts.py -d 3.2 -c btcusd | jq .
-    ```    
+    `
     ```JSON
     {
         "timestamp": "2024-06-05T08:57:55.553131",
@@ -64,9 +64,9 @@ Generate a log alert if the standard deviation from the hourly prices of a curre
 
 Install the dependencies specified in `requirements.txt`.
 
-```bash
+`
 pip3 install -r requirements.txt
-```
+`
     
     
 ### 3. Optional: A dockerfile to run the script
@@ -92,9 +92,9 @@ pip3 install -r requirements.txt
 ### 8. Example cases
 - Example: Help page
 
-    ```bash
+    `
     ./apiAlerts.py -h
-    ```
+    `
 
     ```bash
     2024-06-04 21:51:51,657420 - AlertingTool - INFO - Parsing args
@@ -111,9 +111,9 @@ pip3 install -r requirements.txt
 
 - Example: Deviation true on custom SD and currency:btcusd
 
-    ```bash
+    `
     ./apiAlerts.py -d 0.0011 -c btcusd | jq .
-    ```
+    `
     ```JSON
     {
         "timestamp": "2024-06-04T21:51:58.349331",
@@ -130,9 +130,9 @@ pip3 install -r requirements.txt
     ```
 - Example: Deviation False on default SD and currency:btcusd
 
-    ```bash
+    `
     ./apiAlerts.py -c btcusd | jq . 
-    ```
+    `
     ```JSON
     {
         "timestamp": "2024-06-04T22:13:31.436689",
@@ -144,9 +144,9 @@ pip3 install -r requirements.txt
 
 - Example: Invalid currency symbol
 
-    ```bash
+    `
     ./apiAlerts.py -d 0.0011 -c xyz | jq .
-    ```   
+    `   
     ```JSON
     {
         "level": "ERROR",
@@ -159,18 +159,18 @@ pip3 install -r requirements.txt
 
 - Example: Invalid argument - missing currency symbol
 
-    ```bash
+    `
     ./apiAlerts.py -d 3 -c | jq .
-    ```
+    `
 
     ```bash
     parse error: Invalid numeric literal at line 1, column 6
     ```
 
-    ```zsh
+    `
     ./apiAlerts.py -d 3 -c
-    ```
+    `
 
-    ```zsh
+    ```bash
     ERROR: GetoptError was raised: option -c requires argument
     ```
