@@ -214,3 +214,19 @@ parse error: Invalid numeric literal at line 1, column 6
 ```bash
 ERROR: GetoptError was raised: option -c requires argument
 ```
+### 9. Pylint score
+
+- Ideal error for input argument would be TypeError but due to time constraints, wasnt able to update it.
+- The module name could be changed to `api_alerts.py` (snake_case) but wanted to keep it as close as possible to the sample run shown in the assignment document.
+
+```bash
+python3 test.py 
+```
+```bash
+************* Module apiAlerts
+apiAlerts.py:1:0: C0103: Module name "apiAlerts" doesn't conform to snake_case naming style (invalid-name)
+apiAlerts.py:33:11: W0718: Catching too general exception Exception (broad-exception-caught)
+
+------------------------------------------------------------------
+Your code has been rated at 9.60/10 (previous run: 9.60/10, +0.00)
+```
