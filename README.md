@@ -3,6 +3,46 @@ Generate an alert if the standard deviation from the hourly prices for past 24 h
 
 ## Deliverables:
 - Instructions for running your script
+    ```
+    $ chmod 755 apiAlerts.py
+    $ python3 -m venv myenv
+    $ source myenv/bin/activate
+    $ pip install requests
+    ```
+    - Example 1: using default deviation=1 for currency=btcusd
+    ```
+    $ ./apiAlerts.py -c btcusd | jq .
+    ```
+    ```
+    {
+        "timestamp": "2024-06-05T08:57:03.645215",
+        "trading_pair": "btcusd",
+        "level": "INFO",
+        "deviation": true,
+        "data": {
+            "last_price": "68927.87",
+            "average": "70621.04791666666",
+            "change": "-1693.1779166666674",
+            "sdev": "3.118404410304019"
+        }
+    }
+    ```
+    - Example 2: using deviation=3.2 for currency=btcusd
+    ```
+    ./apiAlerts.py -d 3.2 -c btcusd | jq .
+    ```
+    ```
+    {
+        "timestamp": "2024-06-05T08:57:55.553131",
+        "trading_pair": "btcusd",
+        "level": "INFO",
+        "deviation": false
+    }
+    ```
+
+    deactivate
+
+
 - Dependencies
 - Optional: A dockerfile to run the script
 - What you would do next to further improve it
